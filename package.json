@@ -5,10 +5,18 @@
     "type": "module",
     "types": "lib/index.d.ts",
     "exports": {
-        ".": "./lib/index.js",
-        "./kernel": "./lib/kernel/index.js",
-        "./module": "./lib/module/index.js",
-        "./package.json": "./package.json"
+        ".": {
+            "import": "./lib/index.js",
+            "types": "./lib/index.d.ts"
+        },
+        "./kernel": {
+            "import": "./lib/kernel/index.js",
+            "types": "./lib/kernel/index.d.ts"
+        },
+        "./module": {
+            "import": "./lib/module/index.js",
+            "types": "./lib/module/index.d.ts"
+        }
     },
     "repository": {
         "type": "git",
