@@ -61,3 +61,14 @@ export abstract class Client extends EventEmitter {
     return ret[0];
   }
 }
+
+type ClientConstructor<U> = new (module: string, ...args: any[]) => U;
+
+export const factory = function <T extends Client = Client>(
+  type: ClientConstructor<T>,
+  module: string,
+) {
+  return function (...args: any): T {
+    return new type(module, ...args);
+  };
+};
