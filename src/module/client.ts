@@ -1,13 +1,47 @@
 import EventEmitter from "eventemitter2";
-import { callModule } from "../api.js";
-import { ErrTuple } from "@lumeweb/libweb";
+import { callModule, connectModule, log, logErr } from "../api.js";
+import { DataFn, ErrTuple } from "@lumeweb/libweb";
+
+type callModuleBound = (method: string, data?: any) => Promise<ErrTuple>;
+type connectModuleBound = (
+  method: string,
+  data: any,
+  receiveUpdate: DataFn,
+) => [sendUpdate: DataFn, response: Promise<ErrTuple>];
+
+interface ModuleBag {
+  callModule: typeof callModule;
+  connectModule: typeof connectModule;
+  log: typeof log;
+  logErr: typeof logErr;
+}
+
+interface ModuleBagBound extends ModuleBag {
+  callModule: callModuleBound;
+  connectModule: connectModuleBound;
+}
 
 export abstract class Client extends EventEmitter {
-  private async _callModule(...args) {
-    // @ts-ignore
-    const ret = await callModule(...args);
-    this.handleError(ret);
-    return ret;
+  private _module: string;
+
+  constructor(module: string) {
+    super();
+    this._module = module;
+  }
+
+  get callModule(): callModuleBound {
+    return this.getBound(this._module).callModule;
+  }
+
+  get connectModule(): connectModuleBound {
+    return this.getBound(this._module).connectModule;
+  }
+
+  public getBound(module: string): ModuleBagBound {
+    return {
+      callModule: callModule.bind(undefined, module),
+      connectModule: connectModule.bind(undefined, module),
+    } as ModuleBagBound;
   }
 
   protected handleError(ret: ErrTuple): void {
@@ -22,7 +56,7 @@ export abstract class Client extends EventEmitter {
   }
 
   protected async callModuleReturn(method: string, data?: any): Promise<any> {
-    const ret = await callModule(method, data);
+    const ret = await this.callModule(method, data);
 
     return ret[0];
   }
