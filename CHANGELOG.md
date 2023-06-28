@@ -1,3 +1,10 @@
+# [0.1.0-develop.3](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.2...v0.1.0-develop.3) (2023-06-28)
+
+
+### Bug Fixes
+
+* update package exports to include types ([aae4acd](https://git.lumeweb.com/LumeWeb/libkernel/commit/aae4acd6a70724e242f0c4cfb6e75e95e448a31b))
+
 # [0.1.0-develop.2](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.1...v0.1.0-develop.2) (2023-06-28)
 
 
