@@ -34,7 +34,7 @@
         "semantic-release": "semantic-release"
     },
     "dependencies": {
-        "@lumeweb/libweb": "^0.2.0-develop.19",
+        "@lumeweb/libweb": "^0.2.0-develop.20",
         "eventemitter2": "^6.4.9"
     },
     "publishConfig": {
