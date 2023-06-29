@@ -1,3 +1,10 @@
+# [0.1.0-develop.5](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.4...v0.1.0-develop.5) (2023-06-29)
+
+
+### Bug Fixes
+
+* need typeof ([2d7d057](https://git.lumeweb.com/LumeWeb/libkernel/commit/2d7d057b052c55e9eaf48f38798075a138c1bac1))
+
 # [0.1.0-develop.4](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.3...v0.1.0-develop.4) (2023-06-29)
 
 # [0.1.0-develop.3](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.2...v0.1.0-develop.3) (2023-06-28)
