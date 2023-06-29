@@ -12,7 +12,7 @@ import {
 } from "#module/index.js";
 
 // @ts-ignore
-const kernelEnv = window !== "undefined" && window?.document;
+const kernelEnv = typeof window !== "undefined" && window?.document;
 
 export const callModule = kernelEnv ? callModuleKernel : callModuleModule;
 export const connectModule = kernelEnv
