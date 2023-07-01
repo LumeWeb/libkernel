@@ -1,4 +1,4 @@
-import EventEmitter from "eventemitter2";
+import Emittery from "emittery";
 import { callModule, connectModule, log, logErr } from "../api.js";
 import { DataFn, ErrTuple } from "@lumeweb/libweb";
 
@@ -21,7 +21,7 @@ interface ModuleBagBound extends ModuleBag {
   connectModule: connectModuleBound;
 }
 
-export abstract class Client extends EventEmitter {
+export abstract class Client extends Emittery {
   private _module: string;
 
   constructor(module: string) {
