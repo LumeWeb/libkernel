@@ -1,3 +1,10 @@
+# [0.1.0-develop.7](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.6...v0.1.0-develop.7) (2023-07-01)
+
+
+### Bug Fixes
+
+* export handlePresentKey ([e6a13a1](https://git.lumeweb.com/LumeWeb/libkernel/commit/e6a13a16cce277f3782526ac9aef3160e8f613e4))
+
 # [0.1.0-develop.6](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.5...v0.1.0-develop.6) (2023-06-29)
 
 # [0.1.0-develop.5](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.4...v0.1.0-develop.5) (2023-06-29)
