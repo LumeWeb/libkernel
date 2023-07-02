@@ -70,7 +70,10 @@ function handleMessage(event: MessageEvent) {
   // Ignore all messages that aren't from approved kernel sources. The two
   // approved sources are skt.us and the browser extension bridge (which has
   // an event.source equal to 'window')
-  if (event.source !== window && event.origin !== "https://skt.us") {
+  if (
+    event.source !== window &&
+    event.origin !== "https://kernel.lumeweb.com"
+  ) {
     return;
   }
 
@@ -547,7 +550,7 @@ function newKernelQuery(
       // The message structure needs to adjust based on whether we are
       // talking directly to the kernel or whether we are talking to the
       // background page.
-      if (kernelOrigin === "https://skt.us") {
+      if (kernelOrigin === "https://kernel.lumeweb.com") {
         kernelSource.postMessage(kernelMessage, kernelOrigin);
       } else {
         kernelSource.postMessage(backgroundMessage, kernelOrigin);
