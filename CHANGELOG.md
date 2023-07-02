@@ -1,3 +1,10 @@
+# [0.1.0-develop.10](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.9...v0.1.0-develop.10) (2023-07-02)
+
+
+### Bug Fixes
+
+* export bufToHex ([9767232](https://git.lumeweb.com/LumeWeb/libkernel/commit/976723202d4e7af6288fd73b33756ba016d31999))
+
 # [0.1.0-develop.9](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.8...v0.1.0-develop.9) (2023-07-01)
 
 # [0.1.0-develop.8](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.7...v0.1.0-develop.8) (2023-07-01)
