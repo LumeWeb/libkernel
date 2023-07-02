@@ -12,7 +12,7 @@
                 "emittery": "^1.0.1"
             },
             "devDependencies": {
-                "@lumeweb/node-library-preset": "^0.2.5",
+                "@lumeweb/node-library-preset": "^0.2.7",
                 "presetter": "*",
                 "prettier": "^2.8.8"
             }
@@ -1717,8 +1717,8 @@
             }
         },
         "node_modules/@lumeweb/node-library-preset": {
-            "version": "0.2.5",
-            "resolved": "git+https://git.lumeweb.com/LumeWeb/node-library-preset.git#069c65833dc62cdb29bca21677e92e6303542f9a",
+            "version": "0.2.7",
+            "resolved": "git+https://git.lumeweb.com/LumeWeb/node-library-preset.git#f2b0e350ae9fd50f4a16a3f613291b1e8b59ca05",
             "dependencies": {
                 "@semantic-release/changelog": "^6.0.3",
                 "@semantic-release/git": "^10.0.1",
