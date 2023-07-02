@@ -1,3 +1,10 @@
+# [0.1.0-develop.11](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.10...v0.1.0-develop.11) (2023-07-02)
+
+
+### Bug Fixes
+
+* add support for a hosted kernel, but only on localhost (for debugging) ([44e2a0d](https://git.lumeweb.com/LumeWeb/libkernel/commit/44e2a0d06d5c8511a505a6b5348db6cefac10a01))
+
 # [0.1.0-develop.10](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.9...v0.1.0-develop.10) (2023-07-02)
 
 
