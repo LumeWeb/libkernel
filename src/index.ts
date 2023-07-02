@@ -4,6 +4,7 @@ export {
   ErrTuple,
   addContextToErr,
   objAsString,
+  bufToHex,
   hexToBuf,
   b64ToBuf,
   bufToB64,
