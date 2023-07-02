@@ -186,12 +186,37 @@ function handleMessage(event: MessageEvent) {
   // Ignore any other messages as they might be from other applications.
 }
 
+function launchKernelFrame() {
+  const iframe = document.createElement("iframe");
+  iframe.src = "https://kernel.lumeweb.com";
+  iframe.width = "0";
+  iframe.height = "0";
+  iframe.style.border = "0";
+  iframe.style.position = "absolute";
+  document.body.appendChild(iframe);
+  kernelSource = <Window>iframe.contentWindow;
+  kernelOrigin = "https://kernel.lumeweb.com";
+  kernelAuthLocation = "https://kernel.lumeweb.com/auth.html";
+  sourceResolve();
+
+  // Set a timer to fail the login process if the kernel doesn't load in
+  // time.
+  setTimeout(() => {
+    if (initResolved === true) {
+      return;
+    }
+    initResolved = true;
+    initResolve("tried to open kernel in iframe, but hit a timeout");
+  }, 24000);
+}
+
 // messageBridge will send a message to the bridge of the lume extension to
 // see if it exists. If it does not respond or if it responds with an error,
 // messageBridge will open an iframe to skt.us and use that as the kernel.
 let kernelSource: Window;
 let kernelOrigin: string;
 let kernelAuthLocation: string;
+
 function messageBridge() {
   // Establish the function that will handle the bridge's response.
   let bridgeInitComplete = false;
@@ -242,6 +267,11 @@ function messageBridge() {
       return;
     }
     bridgeInitComplete = true;
+
+    if ("localhost" === window.location.hostname) {
+      log("browser extension not found, falling back to lumeweb.com");
+      launchKernelFrame();
+    }
   }, 500);
 
   return initPromise;
