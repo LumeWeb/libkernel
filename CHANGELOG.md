@@ -1,3 +1,10 @@
+# [0.1.0-develop.14](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.13...v0.1.0-develop.14) (2023-07-03)
+
+
+### Bug Fixes
+
+* export concatBytes ([c1f3daa](https://git.lumeweb.com/LumeWeb/libkernel/commit/c1f3daae83705ec2c90ffb976d4232be48b60c0c))
+
 # [0.1.0-develop.13](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.12...v0.1.0-develop.13) (2023-07-02)
 
 # [0.1.0-develop.12](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.11...v0.1.0-develop.12) (2023-07-02)
