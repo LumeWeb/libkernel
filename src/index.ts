@@ -15,6 +15,7 @@ export {
   sha512,
   ensureBytes,
   equalBytes,
+  concatBytes,
   utf8ToBytes,
 } from "@lumeweb/libweb";
 export { callModule, connectModule, log, logErr } from "./api.js";
