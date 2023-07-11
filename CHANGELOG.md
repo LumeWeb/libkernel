@@ -1,3 +1,10 @@
+# [0.1.0-develop.16](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.15...v0.1.0-develop.16) (2023-07-11)
+
+
+### Bug Fixes
+
+* pass event.data.err to logErr ([191c3b5](https://git.lumeweb.com/LumeWeb/libkernel/commit/191c3b5f903fd057443f2a35db1a32a3e3de90ff))
+
 # [0.1.0-develop.15](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.14...v0.1.0-develop.15) (2023-07-08)
 
 # [0.1.0-develop.14](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.13...v0.1.0-develop.14) (2023-07-03)
