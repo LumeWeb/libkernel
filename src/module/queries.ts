@@ -110,7 +110,7 @@ function handleResponse(event: MessageEvent) {
 
   // Check if the response is an error.
   if (event.data.err !== null) {
-    logErr("there's an error in the data");
+    logErr("there's an error in the data", event.data.err);
     queries[event.data.nonce].resolve([{}, event.data.err]);
     delete queries[event.data.nonce];
     return;
