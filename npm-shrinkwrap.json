@@ -8,7 +8,7 @@
             "name": "@lumeweb/libkernel",
             "version": "0.1.0-develop.16",
             "dependencies": {
-                "@lumeweb/libweb": "0.2.0-develop.23",
+                "@lumeweb/libweb": "0.2.0-develop.24",
                 "emittery": "^1.0.1"
             },
             "devDependencies": {
@@ -1671,9 +1671,9 @@
             }
         },
         "node_modules/@lumeweb/libportal": {
-            "version": "0.2.0-develop.13",
-            "resolved": "https://registry.npmjs.org/@lumeweb/libportal/-/libportal-0.2.0-develop.13.tgz",
-            "integrity": "sha512-vDUspat4eZd3kJxFECiIpm5KKsN7dS8f/12X7LFRPK3n4u0Vr+ZmttjznsyM3iE5L759sI2GUKmjDFzNl9kl0A==",
+            "version": "0.2.0-develop.14",
+            "resolved": "https://registry.npmjs.org/@lumeweb/libportal/-/libportal-0.2.0-develop.14.tgz",
+            "integrity": "sha512-G7lgzJbRZBBiCvxaYAH1umxlxJLZsVZM1zxWynsWHHlM1jIntzyVAjlH47vow47qNEok2b6FmhrMJBGEW6Id7A==",
             "dependencies": {
                 "@lumeweb/node-library-preset": "git+https://git.lumeweb.com/LumeWeb/node-library-preset.git",
                 "@noble/curves": "^1.1.0",
@@ -1705,12 +1705,12 @@
             }
         },
         "node_modules/@lumeweb/libweb": {
-            "version": "0.2.0-develop.23",
-            "resolved": "https://registry.npmjs.org/@lumeweb/libweb/-/libweb-0.2.0-develop.23.tgz",
-            "integrity": "sha512-a6A5r79ZcDf7icRqmSm1A9qh30yFB4UkKjPfZq1zkRHRKRluqqGj6x/Bds/xcuyrNX2gUI/lRZlbrH4hJwYXrQ==",
+            "version": "0.2.0-develop.24",
+            "resolved": "https://registry.npmjs.org/@lumeweb/libweb/-/libweb-0.2.0-develop.24.tgz",
+            "integrity": "sha512-bYfCmBnmoUe4psBwYVR3KLaz0gyXcWmFXLx4wobf1xl3aIPqTsIPO8iVVcBU9dJHSTcWZaoVrixf2SCI3vEpqQ==",
             "dependencies": {
                 "@lumeweb/community-portals": "^0.1.0-develop.6",
-                "@lumeweb/libportal": "^0.2.0-develop.13",
+                "@lumeweb/libportal": "^0.2.0-develop.14",
                 "@lumeweb/node-library-preset": "0.2.7",
                 "@noble/curves": "^1.1.0",
                 "@noble/hashes": "^1.3.1"
