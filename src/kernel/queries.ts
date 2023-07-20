@@ -24,6 +24,19 @@ interface queryMap {
   };
 }
 
+declare global {
+  interface Window {
+    browser: any;
+  }
+}
+
+const IS_EXTENSION =
+  window.browser?.runtime?.id &&
+  window.location.pathname.includes("_generated_background_page.html");
+
+const EXTENSION_KERNEL_ORIGIN = "http://kernel.lume";
+const EXTENSION_HOSTED_ORIGIN = "https://kernel.lumeweb.com";
+
 // Create the queryMap.
 const queries: queryMap = {};
 
@@ -70,11 +83,20 @@ function handleMessage(event: MessageEvent) {
   // Ignore all messages that aren't from approved kernel sources. The two
   // approved sources are skt.us and the browser extension bridge (which has
   // an event.source equal to 'window')
-  if (
+  const FROM_KERNEL =
     event.source !== window &&
-    event.origin !== "https://kernel.lumeweb.com"
-  ) {
+    event.origin === EXTENSION_KERNEL_ORIGIN &&
+    IS_EXTENSION;
+
+  const FROM_HOSTED_KERNEL =
+    event.source !== window && event.origin === EXTENSION_HOSTED_ORIGIN;
+
+  if (!FROM_KERNEL && !FROM_HOSTED_KERNEL) {
     return;
+  }
+
+  if (IS_EXTENSION && !event.data?.data) {
+    event.data.data = Object.assign({}, event.data);
   }
 
   // Ignore any messages that don't have a method and data field.
@@ -83,7 +105,7 @@ function handleMessage(event: MessageEvent) {
   }
 
   // Handle logging messages.
-  if (event.data.method === "log") {
+  if (event.data.method === "log" && !IS_EXTENSION) {
     // We display the logging message if the kernel is a browser
     // extension, so that the kernel's logs appear in the app
     // console as well as the extension console. If the kernel is
@@ -105,7 +127,7 @@ function handleMessage(event: MessageEvent) {
   if (event.data.method === "kernelAuthStatus") {
     // If we have received an auth status message, it means the bootloader
     // at a minimum is working.
-    if (initResolved === false) {
+    if (!initResolved) {
       initResolved = true;
 
       // We can't actually establish that init is complete until the
@@ -116,19 +138,30 @@ function handleMessage(event: MessageEvent) {
       });
     }
 
+    if (IS_EXTENSION && event.data.data.kernelLoaded === "success") {
+      const nonce = nextNonce();
+      queries[nonce] = {
+        resolve: sourceResolve,
+      };
+
+      const kernelMessage = {
+        method: "version",
+        nonce,
+        data: null,
+      };
+      kernelSource.postMessage(kernelMessage, kernelOrigin);
+    }
+
     // If the auth status message says that login is complete, it means
     // that the user is logged in.
-    if (loginResolved === false && event.data.data.loginComplete === true) {
+    if (!loginResolved && event.data.data.loginComplete) {
       loginResolved = true;
       loginResolve();
     }
 
     // If the auth status message says that the kernel loaded, it means
     // that the kernel is ready to receive messages.
-    if (
-      kernelLoadedResolved === false &&
-      event.data.data.kernelLoaded !== "not yet"
-    ) {
+    if (!kernelLoadedResolved && event.data.data.kernelLoaded !== "not yet") {
       kernelLoadedResolved = true;
       if (event.data.data.kernelLoaded === "success") {
         kernelLoadedResolve(null);
@@ -139,8 +172,8 @@ function handleMessage(event: MessageEvent) {
 
     // If we have received a message indicating that the user has logged
     // out, we need to reload the page and reset the auth process.
-    if (event.data.data.logoutComplete === true) {
-      if (logoutResolved === false) {
+    if (event.data.data.logoutComplete) {
+      if (!logoutResolved) {
         logoutResolve();
       }
       window.location.reload();
@@ -198,14 +231,14 @@ function launchKernelFrame() {
   iframe.style.position = "absolute";
   document.body.appendChild(iframe);
   kernelSource = <Window>iframe.contentWindow;
-  kernelOrigin = "https://kernel.lumeweb.com";
-  kernelAuthLocation = "https://kernel.lumeweb.com/auth.html";
+  kernelOrigin = EXTENSION_HOSTED_ORIGIN;
+  kernelAuthLocation = `${EXTENSION_HOSTED_ORIGIN}/auth.html`;
   sourceResolve();
 
   // Set a timer to fail the login process if the kernel doesn't load in
   // time.
   setTimeout(() => {
-    if (initResolved === true) {
+    if (initResolved) {
       return;
     }
     initResolved = true;
@@ -229,53 +262,72 @@ function messageBridge() {
   });
   p.then(([, err]) => {
     // Check if the timeout already elapsed.
-    if (bridgeInitComplete === true) {
+    if (bridgeInitComplete) {
       logErr("received response from bridge, but init already finished");
       return;
     }
     bridgeInitComplete = true;
 
     // Bridge has responded successfully, and there's no error.
-    kernelSource = window;
-    kernelOrigin = window.origin;
-    kernelAuthLocation = "http://kernel.lume/auth.html";
-    console.log(
-      "established connection to bridge, using browser extension for kernel",
-    );
-    sourceResolve();
+    if (IS_EXTENSION) {
+      const iframes = Array.from(
+        document.getElementsByTagName("iframe"),
+      ).filter((item) => item.src === EXTENSION_KERNEL_ORIGIN + "/");
+      if (!iframes.length) {
+        logErr("could not find kernel iframe");
+        return;
+      }
+      kernelSource = iframes[0].contentWindow as Window;
+      kernelOrigin = EXTENSION_KERNEL_ORIGIN;
+    } else {
+      kernelSource = window;
+      kernelOrigin = window.origin;
+    }
+
+    kernelAuthLocation = `${EXTENSION_KERNEL_ORIGIN}/auth.html`;
+    log("established connection to bridge, using browser extension for kernel");
+    if (!IS_EXTENSION) {
+      sourceResolve();
+    }
   });
 
-  // Add the handler to the queries map.
-  const nonce = nextNonce();
-  queries[nonce] = {
-    resolve: bridgeResolve,
-  };
+  if (!IS_EXTENSION) {
+    // Add the handler to the queries map.
+    const nonce = nextNonce();
+    queries[nonce] = {
+      resolve: bridgeResolve,
+    };
 
-  // Send a message to the bridge of the browser extension to determine
-  // whether the bridge exists.
-  window.postMessage(
-    {
-      nonce,
-      method: "kernelBridgeVersion",
-    },
-    window.origin,
-  );
+    // Send a message to the bridge of the browser extension to determine
+    // whether the bridge exists.
+    window.postMessage(
+      {
+        nonce,
+        method: "kernelBridgeVersion",
+      },
+      window.origin,
+    );
 
-  // Set a timeout, if we do not hear back from the bridge in 500
-  // milliseconds we assume that the bridge is not available.
-  setTimeout(() => {
-    // If we've already received and processed a message from the
-    // bridge, there is nothing to do.
-    if (bridgeInitComplete === true) {
-      return;
-    }
-    bridgeInitComplete = true;
+    // Set a timeout, if we do not hear back from the bridge in 500
+    // milliseconds we assume that the bridge is not available.
+    setTimeout(() => {
+      // If we've already received and processed a message from the
+      // bridge, there is nothing to do.
+      if (bridgeInitComplete) {
+        return;
+      }
+      bridgeInitComplete = true;
 
-    if ("localhost" === window.location.hostname) {
-      log("browser extension not found, falling back to lumeweb.com");
-      launchKernelFrame();
-    }
-  }, 500);
+      if ("localhost" === window.location.hostname) {
+        log("browser extension not found, falling back to lumeweb.com");
+        launchKernelFrame();
+      }
+    }, 500);
+  }
+
+  if (IS_EXTENSION) {
+    bridgeResolve([null, null]);
+  }
 
   return initPromise;
 }
@@ -303,7 +355,7 @@ let sourceResolve: () => void;
 let sourcePromise: Promise<void>; // resolves when the source is known and set
 function init(): Promise<void> {
   // If init has already been called, just return the init promise.
-  if (initialized === true) {
+  if (initialized) {
     return initPromise;
   }
   initialized = true;
@@ -493,7 +545,7 @@ function newKernelQuery(
   // promise that blocks until the sendUpdate function is ready to receive
   // the kernel nonce.
   let sendUpdate: DataFn;
-  if (sendUpdates !== true) {
+  if (!sendUpdates) {
     sendUpdate = () => {};
     readyForKernelNonce(); // We won't get a kernel nonce, no reason to block.
   } else {
@@ -540,7 +592,7 @@ function newKernelQuery(
         nonce,
         data,
         sendKernelNonce: sendUpdates,
-      };
+      } as any;
       const backgroundMessage = {
         method: "newKernelQuery",
         nonce,
@@ -550,7 +602,10 @@ function newKernelQuery(
       // The message structure needs to adjust based on whether we are
       // talking directly to the kernel or whether we are talking to the
       // background page.
-      if (kernelOrigin === "https://kernel.lumeweb.com") {
+      if (kernelOrigin === "https://kernel.lumeweb.com" || IS_EXTENSION) {
+        if (IS_EXTENSION) {
+          kernelMessage.domain = window.origin;
+        }
         kernelSource.postMessage(kernelMessage, kernelOrigin);
       } else {
         kernelSource.postMessage(backgroundMessage, kernelOrigin);
