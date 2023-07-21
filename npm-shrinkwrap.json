@@ -8,7 +8,7 @@
             "name": "@lumeweb/libkernel",
             "version": "0.1.0-develop.20",
             "dependencies": {
-                "@lumeweb/libweb": "0.2.0-develop.26",
+                "@lumeweb/libweb": "0.2.0-develop.27",
                 "emittery": "^1.0.1"
             },
             "devDependencies": {
@@ -1705,9 +1705,9 @@
             }
         },
         "node_modules/@lumeweb/libweb": {
-            "version": "0.2.0-develop.26",
-            "resolved": "https://registry.npmjs.org/@lumeweb/libweb/-/libweb-0.2.0-develop.26.tgz",
-            "integrity": "sha512-XRIDiqRFqlEbcwjxAfkv7UYnyTflN3Q4rki8YAd9QrLQM2vycslgPLYS53vVJVL9GPH93V5J9z2V4DPQZlOOkQ==",
+            "version": "0.2.0-develop.27",
+            "resolved": "https://registry.npmjs.org/@lumeweb/libweb/-/libweb-0.2.0-develop.27.tgz",
+            "integrity": "sha512-obS4a6mcHJNoWXy5fCDuGAIVMee0ivK8q/q0semqoS3v0PS7t7sUmRX5ajyCwGbACXYqEdq3vU7RwzxhUkuNGg==",
             "dependencies": {
                 "@lumeweb/community-portals": "^0.1.0-develop.6",
                 "@lumeweb/libportal": "^0.2.0-develop.16",
