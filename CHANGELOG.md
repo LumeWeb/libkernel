@@ -1,3 +1,10 @@
+# [0.1.0-develop.23](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.22...v0.1.0-develop.23) (2023-07-21)
+
+
+### Bug Fixes
+
+* add type check on window ([ceffa29](https://git.lumeweb.com/LumeWeb/libkernel/commit/ceffa292ca7fa12f5a53b6975d988caff5347747))
+
 # [0.1.0-develop.22](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.21...v0.1.0-develop.22) (2023-07-21)
 
 # [0.1.0-develop.21](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.20...v0.1.0-develop.21) (2023-07-20)
