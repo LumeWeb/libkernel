@@ -252,4 +252,8 @@ function respondErr(event: MessageEvent, err: string) {
   clearIncomingQuery(event.data.nonce);
 }
 
+if (typeof importScripts === "function") {
+  onmessage = handleMessage;
+}
+
 export { ActiveQuery, addHandler, DataFn, handleMessage };
