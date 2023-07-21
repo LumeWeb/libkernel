@@ -31,6 +31,7 @@ declare global {
 }
 
 const IS_EXTENSION =
+  typeof window !== "undefined" &&
   window.browser?.runtime?.id &&
   window.location.pathname.includes("_generated_background_page.html");
 
