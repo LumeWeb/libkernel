@@ -1,12 +1,12 @@
 {
     "name": "@lumeweb/libkernel",
-    "version": "0.1.0-develop.23",
+    "version": "0.1.0-develop.24",
     "lockfileVersion": 3,
     "requires": true,
     "packages": {
         "": {
             "name": "@lumeweb/libkernel",
-            "version": "0.1.0-develop.23",
+            "version": "0.1.0-develop.24",
             "dependencies": {
                 "@lumeweb/libweb": "0.2.0-develop.27",
                 "emittery": "^1.0.1",

@@ -1,3 +1,10 @@
+# [0.1.0-develop.24](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.23...v0.1.0-develop.24) (2023-07-21)
+
+
+### Bug Fixes
+
+* if we are in a webworker, automatically setup the handler so we don't ever forget ([565fb05](https://git.lumeweb.com/LumeWeb/libkernel/commit/565fb05d85073f254badb9e05ba372568da62c37))
+
 # [0.1.0-develop.23](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.22...v0.1.0-develop.23) (2023-07-21)
 
 
