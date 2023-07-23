@@ -1,3 +1,11 @@
+# [0.1.0-develop.25](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.24...v0.1.0-develop.25) (2023-07-23)
+
+
+### Features
+
+* add getNetworkModuleStatus to fetch a network module status, either one time or continuous ([19167ac](https://git.lumeweb.com/LumeWeb/libkernel/commit/19167acec25fd1e9caa6023e539f10b8c0e0fb02))
+* create abstract NetworkClient with register, status, and ready methods. status calls getNetworkModuleStatus ([711b134](https://git.lumeweb.com/LumeWeb/libkernel/commit/711b1341b80da16cc500ca1e6ba856a145f50037))
+
 # [0.1.0-develop.24](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.23...v0.1.0-develop.24) (2023-07-21)
 
 
