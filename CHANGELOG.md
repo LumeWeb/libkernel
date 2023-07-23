@@ -1,3 +1,10 @@
+# [0.1.0-develop.27](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.26...v0.1.0-develop.27) (2023-07-23)
+
+
+### Bug Fixes
+
+* export NetworkClient ([55b578a](https://git.lumeweb.com/LumeWeb/libkernel/commit/55b578aaceaea0ae92700fccbb7eca5085c6b35c))
+
 # [0.1.0-develop.26](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.25...v0.1.0-develop.26) (2023-07-23)
 
 
