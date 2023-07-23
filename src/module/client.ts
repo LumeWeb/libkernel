@@ -2,8 +2,8 @@ import Emittery from "emittery";
 import { callModule, connectModule, log, logErr } from "../api.js";
 import { DataFn, ErrTuple } from "@lumeweb/libweb";
 
-type callModuleBound = (method: string, data?: any) => Promise<ErrTuple>;
-type connectModuleBound = (
+export type callModuleBound = (method: string, data?: any) => Promise<ErrTuple>;
+export type connectModuleBound = (
   method: string,
   data: any,
   receiveUpdate: DataFn,
