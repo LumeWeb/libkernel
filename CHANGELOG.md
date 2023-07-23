@@ -1,3 +1,10 @@
+# [0.1.0-develop.26](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.25...v0.1.0-develop.26) (2023-07-23)
+
+
+### Features
+
+* re-export defer from p-defer ([2ac16d2](https://git.lumeweb.com/LumeWeb/libkernel/commit/2ac16d2c5c6f505d4a76d41c5e9e3ad67dacb1cd))
+
 # [0.1.0-develop.25](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.24...v0.1.0-develop.25) (2023-07-23)
 
 
