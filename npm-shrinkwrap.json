@@ -9,7 +9,8 @@
             "version": "0.1.0-develop.23",
             "dependencies": {
                 "@lumeweb/libweb": "0.2.0-develop.27",
-                "emittery": "^1.0.1"
+                "emittery": "^1.0.1",
+                "p-defer": "^4.0.0"
             },
             "devDependencies": {
                 "@lumeweb/node-library-preset": "^0.2.7",
