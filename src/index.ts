@@ -18,4 +18,10 @@ export {
   concatBytes,
   utf8ToBytes,
 } from "@lumeweb/libweb";
-export { callModule, connectModule, log, logErr } from "./api.js";
+export {
+  callModule,
+  connectModule,
+  log,
+  logErr,
+  getNetworkModuleStatus,
+} from "./api.js";
