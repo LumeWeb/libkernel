@@ -1,3 +1,10 @@
+# [0.1.0-develop.28](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.27...v0.1.0-develop.28) (2023-07-25)
+
+
+### Bug Fixes
+
+* export getNetworkModuleStatus ([624511a](https://git.lumeweb.com/LumeWeb/libkernel/commit/624511a0417531db57c93d64cae74dd7f66996b1))
+
 # [0.1.0-develop.27](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.26...v0.1.0-develop.27) (2023-07-23)
 
 
