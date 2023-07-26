@@ -30,10 +30,20 @@ declare global {
   }
 }
 
+declare var browser: any;
+
+const IS_EXTENSION_BG = window.location.pathname.includes(
+  "_generated_background_page.html",
+);
+const IS_EXTENSION_ENV =
+  typeof window !== "undefined" && window.browser?.runtime?.id;
+
 const IS_EXTENSION =
-  typeof window !== "undefined" &&
-  window.browser?.runtime?.id &&
+  IS_EXTENSION_ENV &&
   window.location.pathname.includes("_generated_background_page.html");
+
+const IS_EXTENSION_PAGE = IS_EXTENSION_ENV && !IS_EXTENSION_BG;
+const IS_EXTENSION_ANY = IS_EXTENSION || IS_EXTENSION_PAGE;
 
 const EXTENSION_KERNEL_ORIGIN = "http://kernel.lume";
 const EXTENSION_HOSTED_ORIGIN = "https://kernel.lumeweb.com";
@@ -52,6 +62,9 @@ const queries: queryMap = {};
 // guarantee that the applications will not use conflicting nonces.
 let nonceSeed: Uint8Array;
 let nonceCounter: number;
+
+let bgConn: any;
+
 function initNonce() {
   nonceSeed = new Uint8Array(16);
   nonceCounter = 0;
@@ -87,12 +100,18 @@ function handleMessage(event: MessageEvent) {
   const FROM_KERNEL =
     event.source !== window &&
     event.origin === EXTENSION_KERNEL_ORIGIN &&
-    IS_EXTENSION;
+    IS_EXTENSION_ANY;
 
   const FROM_HOSTED_KERNEL =
     event.source !== window && event.origin === EXTENSION_HOSTED_ORIGIN;
 
-  if (!FROM_KERNEL && !FROM_HOSTED_KERNEL) {
+  if (bgConn) {
+    event = Object.assign({}, event);
+    // @ts-ignore
+    event.data = Object.assign({}, event);
+  }
+
+  if (!FROM_KERNEL && !FROM_HOSTED_KERNEL && !bgConn) {
     return;
   }
 
@@ -139,7 +158,7 @@ function handleMessage(event: MessageEvent) {
       });
     }
 
-    if (IS_EXTENSION && event.data.data.kernelLoaded === "success") {
+    if (IS_EXTENSION_ANY && event.data.data.kernelLoaded === "success") {
       const nonce = nextNonce();
       queries[nonce] = {
         resolve: sourceResolve,
@@ -150,7 +169,11 @@ function handleMessage(event: MessageEvent) {
         nonce,
         data: null,
       };
-      kernelSource.postMessage(kernelMessage, kernelOrigin);
+      if (IS_EXTENSION_PAGE) {
+        bgConn.postMessage(kernelMessage);
+      } else {
+        kernelSource.postMessage(kernelMessage, kernelOrigin);
+      }
     }
 
     // If the auth status message says that login is complete, it means
@@ -261,6 +284,12 @@ function messageBridge() {
   const p: Promise<ErrTuple> = new Promise((resolve) => {
     bridgeResolve = resolve;
   });
+
+  if (IS_EXTENSION_PAGE) {
+    bgConn = browser.runtime.connect();
+    bgConn.onMessage.addListener(handleMessage);
+  }
+
   p.then(([, err]) => {
     // Check if the timeout already elapsed.
     if (bridgeInitComplete) {
@@ -287,12 +316,12 @@ function messageBridge() {
 
     kernelAuthLocation = `${EXTENSION_KERNEL_ORIGIN}/auth.html`;
     log("established connection to bridge, using browser extension for kernel");
-    if (!IS_EXTENSION) {
+    if (!IS_EXTENSION_ANY) {
       sourceResolve();
     }
   });
 
-  if (!IS_EXTENSION) {
+  if (!IS_EXTENSION_ANY) {
     // Add the handler to the queries map.
     const nonce = nextNonce();
     queries[nonce] = {
@@ -326,7 +355,7 @@ function messageBridge() {
     }, 500);
   }
 
-  if (IS_EXTENSION) {
+  if (IS_EXTENSION_ANY) {
     bridgeResolve([null, null]);
   }
 
@@ -608,6 +637,8 @@ function newKernelQuery(
           kernelMessage.domain = window.origin;
         }
         kernelSource.postMessage(kernelMessage, kernelOrigin);
+      } else if (IS_EXTENSION_PAGE) {
+        bgConn.postMessage(kernelMessage);
       } else {
         kernelSource.postMessage(backgroundMessage, kernelOrigin);
       }
