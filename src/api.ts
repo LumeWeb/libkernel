@@ -28,7 +28,7 @@ export function getNetworkModuleStatus(
   module?: string,
   // @ts-ignore
   CM: connectModuleBound = connectModule.bind(null, module),
-): Promise<void> | (() => Promise<void>) {
+): Promise<void> | (() => void) {
   let recvUpdate = (data) => {
     callback?.(data);
   };
@@ -52,7 +52,7 @@ export function getNetworkModuleStatus(
 
   let closed = false;
 
-  return async () => {
+  return () => {
     if (closed) {
       return;
     }
