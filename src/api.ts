@@ -23,12 +23,12 @@ export const connectModule = kernelEnv
 export const log = kernelEnv ? logKernel : logModule;
 export const logErr = kernelEnv ? logErrKernel : logErrModule;
 
-export async function getNetworkModuleStatus(
+export function getNetworkModuleStatus(
   callback?: any,
   module?: string,
   // @ts-ignore
   CM: connectModuleBound = connectModule.bind(null, module),
-): Promise<void | (() => Promise<void>)> {
+): Promise<void> | (() => Promise<void>) {
   let recvUpdate = (data) => {
     callback?.(data);
   };
