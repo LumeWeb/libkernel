@@ -1,3 +1,10 @@
+# [0.1.0-develop.30](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.29...v0.1.0-develop.30) (2023-07-27)
+
+
+### Bug Fixes
+
+* make getNetworkModuleStatus not be async so we don't need to wait to get the async function if we have a callback ([a72651e](https://git.lumeweb.com/LumeWeb/libkernel/commit/a72651e9246d6d0a8a9670f9ada534e5da5116e6))
+
 # [0.1.0-develop.29](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.28...v0.1.0-develop.29) (2023-07-26)
 
 # [0.1.0-develop.28](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.27...v0.1.0-develop.28) (2023-07-25)
