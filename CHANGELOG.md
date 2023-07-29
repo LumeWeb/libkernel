@@ -1,3 +1,10 @@
+# [0.1.0-develop.32](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.31...v0.1.0-develop.32) (2023-07-29)
+
+
+### Bug Fixes
+
+* add missing typeof check ([420a28c](https://git.lumeweb.com/LumeWeb/libkernel/commit/420a28c2246a696d1dea136c599f6b69f116a61f))
+
 # [0.1.0-develop.31](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.30...v0.1.0-develop.31) (2023-07-29)
 
 
