@@ -1,3 +1,16 @@
+# [0.1.0-develop.31](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.30...v0.1.0-develop.31) (2023-07-29)
+
+
+### Bug Fixes
+
+* function does not need to be async ([09b691c](https://git.lumeweb.com/LumeWeb/libkernel/commit/09b691ce0f12ffb4541d7fde392728ed9043e3e0))
+* update status signature ([809e0ec](https://git.lumeweb.com/LumeWeb/libkernel/commit/809e0ecd3b7d6fe18a3faa22516c45c916c3b89a))
+
+
+### Features
+
+* add name method for api ([7affb28](https://git.lumeweb.com/LumeWeb/libkernel/commit/7affb2808133372f2c94a63deff58f3f057f4ce8))
+
 # [0.1.0-develop.30](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.29...v0.1.0-develop.30) (2023-07-27)
 
 
