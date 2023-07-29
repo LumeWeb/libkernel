@@ -1,3 +1,10 @@
+# [0.1.0-develop.34](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.33...v0.1.0-develop.34) (2023-07-29)
+
+
+### Bug Fixes
+
+* change callModule wrapper signature and correctly call callModule ([2adbddc](https://git.lumeweb.com/LumeWeb/libkernel/commit/2adbddc769e00767541e27efbef3fd237eb68e2d))
+
 # [0.1.0-develop.33](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.32...v0.1.0-develop.33) (2023-07-29)
 
 
