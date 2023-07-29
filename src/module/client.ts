@@ -39,7 +39,12 @@ export abstract class Client extends Emittery {
 
   public getBound(module: string): ModuleBagBound {
     return {
-      callModule: callModule.bind(undefined, module),
+      callModule: async (...args: any) => {
+        const ret = await this.callModule(module, ...args);
+        this.handleError(ret);
+
+        return ret;
+      },
       connectModule: connectModule.bind(undefined, module),
     } as ModuleBagBound;
   }
