@@ -32,9 +32,9 @@ declare global {
 
 declare var browser: any;
 
-const IS_EXTENSION_BG = window.location.pathname.includes(
-  "_generated_background_page.html",
-);
+const IS_EXTENSION_BG =
+  typeof window !== "undefined" &&
+  window.location.pathname.includes("_generated_background_page.html");
 const IS_EXTENSION_ENV =
   typeof window !== "undefined" && window.browser?.runtime?.id;
 
