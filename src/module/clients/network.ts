@@ -6,7 +6,7 @@ export default abstract class NetworkClient extends Client {
     return this.callModuleReturn("register");
   }
 
-  public async status(callback?: any): Promise<void | (() => Promise<void>)> {
+  public status(callback?: any): Promise<void> | (() => void) {
     return getNetworkModuleStatus(callback, undefined, this.connectModule);
   }
 
