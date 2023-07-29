@@ -10,6 +10,10 @@ export default abstract class NetworkClient extends Client {
     return getNetworkModuleStatus(callback, undefined, this.connectModule);
   }
 
+  public async name() {
+    return this.callModuleReturn("name");
+  }
+
   public async ready() {
     return this.callModuleReturn("ready");
   }
