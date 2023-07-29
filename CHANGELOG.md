@@ -1,3 +1,10 @@
+# [0.1.0-develop.33](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.32...v0.1.0-develop.33) (2023-07-29)
+
+
+### Bug Fixes
+
+* make callModule a wrapper function that calls handleError ([73ea9ca](https://git.lumeweb.com/LumeWeb/libkernel/commit/73ea9ca5b08d9ef4a8b2f54ba4174a66e6e3ec2f))
+
 # [0.1.0-develop.32](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.31...v0.1.0-develop.32) (2023-07-29)
 
 
