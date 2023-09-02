@@ -1,3 +1,5 @@
+# [0.1.0-develop.37](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.36...v0.1.0-develop.37) (2023-09-02)
+
 # [0.1.0-develop.36](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.35...v0.1.0-develop.36) (2023-08-20)
 
 # [0.1.0-develop.35](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.34...v0.1.0-develop.35) (2023-08-10)
