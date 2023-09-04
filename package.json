@@ -1,6 +1,6 @@
 {
     "name": "@lumeweb/libkernel",
-    "version": "0.1.0-develop.39",
+    "version": "0.1.0-develop.40",
     "main": "lib/index.js",
     "type": "module",
     "types": "lib/index.d.ts",
