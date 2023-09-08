@@ -4,6 +4,10 @@
 // NOTE: To protect against accidental situations where an Error type or some
 // other type is provided instead of a string, we wrap both of the inputs with
 // objAsString before returning them. This prevents runtime failures.
+import { Err } from "#types.js";
+
+const MAX_UINT_64 = 18446744073709551615n;
+
 function addContextToErr(err: any, context: string): string {
   if (err === null || err === undefined) {
     err = "[no error provided]";
@@ -74,5 +78,41 @@ function objAsString(obj: any): string {
   }
 }
 
-export { objAsString };
-export { addContextToErr };
+// decodeU64 is the opposite of encodeU64, it takes a uint64 encoded as 8 bytes
+// and decodes them into a BigInt.
+function decodeU64(u8: Uint8Array): [bigint, Err] {
+  // Check the input.
+  if (u8.length !== 8) {
+    return [0n, "input should be 8 bytes"];
+  }
+
+  // Process the input.
+  let num = 0n;
+  for (let i = u8.length - 1; i >= 0; i--) {
+    num *= 256n;
+    num += BigInt(u8[i]);
+  }
+  return [num, null];
+}
+
+// encodeU64 will encode a bigint in the range of a uint64 to an 8 byte
+// Uint8Array.
+function encodeU64(num: bigint): [Uint8Array, Err] {
+  // Check the bounds on the bigint.
+  if (num < 0) {
+    return [new Uint8Array(0), "expected a positive integer"];
+  }
+  if (num > MAX_UINT_64) {
+    return [new Uint8Array(0), "expected a number no larger than a uint64"];
+  }
+
+  // Encode the bigint into a Uint8Array.
+  const encoded = new Uint8Array(8);
+  for (let i = 0; i < encoded.length; i++) {
+    encoded[i] = Number(num & 0xffn);
+    num = num >> 8n;
+  }
+  return [encoded, null];
+}
+
+export { objAsString, addContextToErr, encodeU64, decodeU64 };
