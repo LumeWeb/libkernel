@@ -1,16 +1,4 @@
 export {
-  DataFn,
-  Err,
-  ErrTuple,
-  addContextToErr,
-  objAsString,
-  bufToHex,
-  hexToBuf,
-  b64ToBuf,
-  bufToB64,
-  bufToStr,
-  decodeU64,
-  encodeU64,
   ed25519,
   sha512,
   ensureBytes,
@@ -26,3 +14,4 @@ export {
   getNetworkModuleStatus,
 } from "./api.js";
 export * from "./util.js";
+export * from "./types.js";
