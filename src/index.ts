@@ -25,3 +25,4 @@ export {
   logErr,
   getNetworkModuleStatus,
 } from "./api.js";
+export * from "./util.js";
