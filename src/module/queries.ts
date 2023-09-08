@@ -1,6 +1,6 @@
 import { log, logErr } from "./log.js";
-import { DataFn } from "./messages.js";
-import { ErrTuple, objAsString } from "@lumeweb/libweb";
+import type { DataFn, ErrTuple } from "#types.js";
+import { objAsString } from "#util.js";
 
 // queryResolve defines the function that gets called to resolve a query. It's
 // the 'resolve' field of a promise that returns a tuple containing some data

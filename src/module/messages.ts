@@ -9,7 +9,8 @@ import {
   handleResponseUpdate,
 } from "./queries.js";
 import { handlePresentKey } from "./key.js";
-import { DataFn, ErrFn, addContextToErr, objAsString } from "@lumeweb/libweb";
+import type { DataFn, ErrFn } from "#types.js";
+import { addContextToErr, objAsString } from "#util.js";
 
 // handlerFn takes an ActiveQuery as input and has no return value. The return
 // is expected to come in the form of calling aq.accept or aq.reject.

@@ -1,4 +1,4 @@
-import { objAsString } from "@lumeweb/libweb";
+import { objAsString } from "#util.js";
 
 // logHelper is a helper function that runs the code for both log and logErr.
 // It takes a boolean indiciating whether the log should be an error, and then
