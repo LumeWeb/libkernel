@@ -5,7 +5,7 @@ import {
   loginPromise,
   logoutPromise,
 } from "./queries.js";
-import { Err } from "@lumeweb/libweb";
+import { Err } from "../types.js";
 
 // There are 5 stages of auth.
 //
