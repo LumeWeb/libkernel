@@ -1,3 +1,13 @@
+# [0.1.0-develop.46](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.45...v0.1.0-develop.46) (2023-09-08)
+
+
+### Bug Fixes
+
+* export types since we are no longer storing them in libweb ([4abc3ed](https://git.lumeweb.com/LumeWeb/libkernel/commit/4abc3ed9c4f0c6a7662d2eda4b5c71c39e8bc0fe))
+* update imports to be local ([631fde4](https://git.lumeweb.com/LumeWeb/libkernel/commit/631fde4868e4fe5e0b8f7c779d8d079093a70c3b))
+* use Err from types ([bb1229e](https://git.lumeweb.com/LumeWeb/libkernel/commit/bb1229eeb2429d5a71e797283116d2fcfb5eb732))
+* use types and util locally ([469f02b](https://git.lumeweb.com/LumeWeb/libkernel/commit/469f02b69fc65b4caea8136587e14e095c6e6b6e))
+
 # [0.1.0-develop.45](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.44...v0.1.0-develop.45) (2023-09-04)
 
 # [0.1.0-develop.44](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.43...v0.1.0-develop.44) (2023-09-04)
