@@ -1,5 +1,6 @@
 import { log, logErr } from "./log.js";
-import { DataFn, Err, ErrTuple, bufToB64, encodeU64 } from "@lumeweb/libweb";
+import { DataFn, Err, ErrTuple } from "../types.js";
+import { bufToB64, encodeU64 } from "../util.js";
 
 // queryResolve is the 'resolve' value of a promise that returns an ErrTuple.
 // It gets called when a query sends a 'response' message.
