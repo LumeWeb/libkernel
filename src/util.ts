@@ -115,4 +115,9 @@ function encodeU64(num: bigint): [Uint8Array, Err] {
   return [encoded, null];
 }
 
-export { objAsString, addContextToErr, encodeU64, decodeU64 };
+function bufToB64(buf: Uint8Array): string {
+  const b64Str = btoa(String.fromCharCode(...buf));
+  return b64Str.replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
+}
+
+export { objAsString, addContextToErr, encodeU64, decodeU64, bufToB64 };
