@@ -348,11 +348,8 @@ function messageBridge() {
         return;
       }
       bridgeInitComplete = true;
-
-      if ("localhost" === window.location.hostname) {
-        log("browser extension not found, falling back to lumeweb.com");
-        launchKernelFrame();
-      }
+      log("browser extension not found, falling back to lumeweb.com");
+      launchKernelFrame();
     }, 500);
   }
 
