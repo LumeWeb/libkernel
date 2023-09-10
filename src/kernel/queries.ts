@@ -67,6 +67,19 @@ let nonceCounter: number;
 
 let bgConn: any;
 
+let serviceWorker: ServiceWorker;
+let kernelIframe: HTMLIFrameElement;
+
+async function serviceWorkerReady() {
+  const sw = await navigator.serviceWorker.ready;
+  navigator.serviceWorker.onmessage = (...args) => handleMessage(...args);
+  serviceWorker = sw.active as ServiceWorker;
+}
+
+function getServiceWorker() {
+  return serviceWorker;
+}
+
 function initNonce() {
   nonceSeed = new Uint8Array(16);
   nonceCounter = 0;
@@ -115,6 +128,28 @@ function handleMessage(event: MessageEvent) {
 
   if (!FROM_KERNEL && !FROM_HOSTED_KERNEL && !bgConn) {
     return;
+  }
+
+  if (event.source === kernelIframe?.contentWindow) {
+    if (
+      ["response", "queryUpdate", "responseNonce", "responseUpdate"].includes(
+        event.data.method,
+      ) &&
+      event.data.sw
+    ) {
+      delete event.data.sw;
+      serviceWorker?.postMessage(event.data);
+      return;
+    }
+  }
+  if (event.source === serviceWorker) {
+    if (["moduleCall", "queryUpdate", "response"].includes(event.data.method)) {
+      kernelIframe?.contentWindow?.postMessage(
+        { ...event.data, sw: true },
+        "https://kernel.lumeweb.com",
+      );
+      return;
+    }
   }
 
   if (IS_EXTENSION && !event.data?.data) {
@@ -249,14 +284,14 @@ function handleMessage(event: MessageEvent) {
 }
 
 function launchKernelFrame() {
-  const iframe = document.createElement("iframe");
-  iframe.src = "https://kernel.lumeweb.com";
-  iframe.width = "0";
-  iframe.height = "0";
-  iframe.style.border = "0";
-  iframe.style.position = "absolute";
-  document.body.appendChild(iframe);
-  kernelSource = <Window>iframe.contentWindow;
+  kernelIframe = document.createElement("iframe");
+  kernelIframe.src = "https://kernel.lumeweb.com";
+  kernelIframe.width = "0";
+  kernelIframe.height = "0";
+  kernelIframe.style.border = "0";
+  kernelIframe.style.position = "absolute";
+  document.body.appendChild(kernelIframe);
+  kernelSource = <Window>kernelIframe.contentWindow;
   kernelOrigin = EXTENSION_HOSTED_ORIGIN;
   kernelAuthLocation = `${EXTENSION_HOSTED_ORIGIN}/auth.html`;
   sourceDefer.resolve();
@@ -269,7 +304,7 @@ function launchKernelFrame() {
     }
     initResolved = true;
     initDefer.resolve(
-      "tried to open kernel in iframe, but hit a timeout" as any,
+      "tried to open kernel in kernelIframe, but hit a timeout" as any,
     );
   }, 24000);
 }
@@ -647,4 +682,5 @@ export {
   loginDefer,
   logoutDefer,
   newKernelQuery,
+  serviceWorkerReady,
 };
