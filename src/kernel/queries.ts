@@ -1,6 +1,7 @@
 import { log, logErr } from "./log.js";
 import { DataFn, Err, ErrTuple } from "#types.js";
 import { bufToB64, encodeU64 } from "#util.js";
+import defer, { DeferredPromise } from "p-defer";
 
 // queryResolve is the 'resolve' value of a promise that returns an ErrTuple.
 // It gets called when a query sends a 'response' message.
@@ -154,15 +155,15 @@ function handleMessage(event: MessageEvent) {
       // We can't actually establish that init is complete until the
       // kernel source has been set. This happens async and might happen
       // after we receive the auth message.
-      sourcePromise.then(() => {
-        initResolve();
+      sourceDefer.promise.then(() => {
+        initDefer.resolve();
       });
     }
 
     if (IS_EXTENSION_ANY && event.data.data.kernelLoaded === "success") {
       const nonce = nextNonce();
       queries[nonce] = {
-        resolve: sourceResolve,
+        resolve: sourceDefer.resolve as unknown as queryResolve,
       };
 
       const kernelMessage = {
@@ -181,7 +182,7 @@ function handleMessage(event: MessageEvent) {
     // that the user is logged in.
     if (!loginResolved && event.data.data.loginComplete) {
       loginResolved = true;
-      loginResolve();
+      loginDefer.resolve();
     }
 
     // If the auth status message says that the kernel loaded, it means
@@ -199,7 +200,7 @@ function handleMessage(event: MessageEvent) {
     // out, we need to reload the page and reset the auth process.
     if (event.data.data.logoutComplete) {
       if (!logoutResolved) {
-        logoutResolve();
+        logoutDefer.resolve();
       }
       window.location.reload();
     }
@@ -258,7 +259,7 @@ function launchKernelFrame() {
   kernelSource = <Window>iframe.contentWindow;
   kernelOrigin = EXTENSION_HOSTED_ORIGIN;
   kernelAuthLocation = `${EXTENSION_HOSTED_ORIGIN}/auth.html`;
-  sourceResolve();
+  sourceDefer.resolve();
 
   // Set a timer to fail the login process if the kernel doesn't load in
   // time.
@@ -267,7 +268,9 @@ function launchKernelFrame() {
       return;
     }
     initResolved = true;
-    initResolve("tried to open kernel in iframe, but hit a timeout");
+    initDefer.resolve(
+      "tried to open kernel in iframe, but hit a timeout" as any,
+    );
   }, 24000);
 }
 
@@ -318,7 +321,7 @@ function messageBridge() {
     kernelAuthLocation = `${EXTENSION_KERNEL_ORIGIN}/auth.html`;
     log("established connection to bridge, using browser extension for kernel");
     if (!IS_EXTENSION_ANY) {
-      sourceResolve();
+      sourceDefer.resolve();
     }
   });
 
@@ -357,7 +360,7 @@ function messageBridge() {
     bridgeResolve([null, null]);
   }
 
-  return initPromise;
+  return initDefer;
 }
 
 // init is a function that returns a promise which will resolve when
@@ -368,23 +371,19 @@ function messageBridge() {
 // thanks to the 'initialized' variable.
 let initialized = false; // set to true once 'init()' has been called
 let initResolved = false; // set to true once we know the bootloader is working
-let initResolve: DataFn;
-let initPromise: Promise<void>;
+let initDefer: DeferredPromise<void>;
 let loginResolved = false; // set to true once we know the user is logged in
-let loginResolve: () => void;
-let loginPromise: Promise<void>;
+let loginDefer: DeferredPromise<void>;
 let kernelLoadedResolved = false; // set to true once the user kernel is loaded
 let kernelLoadedResolve: (err: Err) => void;
-let kernelLoadedPromise: Promise<Err>;
+let kernelLoadedDefer: DeferredPromise<Err>;
 const logoutResolved = false; // set to true once the user is logged out
-let logoutResolve: () => void;
-let logoutPromise: Promise<void>;
-let sourceResolve: () => void;
-let sourcePromise: Promise<void>; // resolves when the source is known and set
+let logoutDefer: DeferredPromise<void>;
+let sourceDefer: DeferredPromise<void>; // resolves when the source is known and set
 function init(): Promise<void> {
   // If init has already been called, just return the init promise.
   if (initialized) {
-    return initPromise;
+    return initDefer.promise;
   }
   initialized = true;
 
@@ -394,25 +393,16 @@ function init(): Promise<void> {
   messageBridge();
 
   // Create the promises that resolve at various stages of the auth flow.
-  initPromise = new Promise((resolve) => {
-    initResolve = resolve;
-  });
-  loginPromise = new Promise((resolve) => {
-    loginResolve = resolve;
-  });
-  kernelLoadedPromise = new Promise((resolve) => {
-    kernelLoadedResolve = resolve;
-  });
-  logoutPromise = new Promise((resolve) => {
-    logoutResolve = resolve;
-  });
-  sourcePromise = new Promise((resolve) => {
-    sourceResolve = resolve;
-  });
+  initDefer = defer();
+  loginDefer = defer();
+  kernelLoadedDefer = defer();
+  logoutDefer = defer();
+  kernelLoadedDefer = defer();
+  sourceDefer = defer();
 
-  // Return the initPromise, which will resolve when bootloader init is
+  // Return the initDefer, which will resolve when bootloader init is
   // complete.
-  return initPromise;
+  return initDefer.promise;
 }
 
 // callModule is a generic function to call a module. The first input is the
@@ -536,7 +526,7 @@ function newKernelQuery(
   // implies that init is complete.
   const getNonce: Promise<string> = new Promise((resolve) => {
     init().then(() => {
-      kernelLoadedPromise.then(() => {
+      kernelLoadedDefer.promise.then(() => {
         resolve(nextNonce());
       });
     });
@@ -653,8 +643,8 @@ export {
   connectModule,
   init,
   kernelAuthLocation,
-  kernelLoadedPromise,
-  loginPromise,
-  logoutPromise,
+  kernelLoadedDefer,
+  loginDefer,
+  logoutDefer,
   newKernelQuery,
 };

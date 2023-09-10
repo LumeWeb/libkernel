@@ -1,9 +1,9 @@
 import {
   init,
   kernelAuthLocation,
-  kernelLoadedPromise,
-  loginPromise,
-  logoutPromise,
+  kernelLoadedDefer,
+  loginDefer,
+  logoutDefer,
 } from "./queries.js";
 import { Err } from "#types.js";
 
@@ -33,7 +33,7 @@ import { Err } from "#types.js";
 
 // loginComplete will resolve when the user has successfully logged in.
 function loginComplete(): Promise<void> {
-  return loginPromise;
+  return loginDefer.promise;
 }
 
 // kernelLoaded will resolve when the user has successfully loaded the kernel.
@@ -41,14 +41,14 @@ function loginComplete(): Promise<void> {
 //
 // NOTE: kernelLoaded will not resolve until after loginComplete has resolved.
 function kernelLoaded(): Promise<Err> {
-  return kernelLoadedPromise;
+  return kernelLoadedDefer.promise;
 }
 
 // logoutComplete will resolve when the user has logged out. Note that
 // logoutComplete will only resolve if the user logged in first - if the user
 // was not logged in to begin with, this promise will not resolve.
 function logoutComplete(): Promise<void> {
-  return logoutPromise;
+  return logoutDefer.promise;
 }
 
 // openAuthWindow is intended to be used as an onclick target when the user
