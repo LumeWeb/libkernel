@@ -1,3 +1,10 @@
+# [0.1.0-develop.57](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.56...v0.1.0-develop.57) (2023-09-11)
+
+
+### Bug Fixes
+
+* replace kernelLoadedResolve with kernelLoadedDefer ([b5d3ba4](https://git.lumeweb.com/LumeWeb/libkernel/commit/b5d3ba46cf2f912652bf32769c6ae60dab40224a))
+
 # [0.1.0-develop.56](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.55...v0.1.0-develop.56) (2023-09-11)
 
 
