@@ -90,12 +90,12 @@ async function login(key: Uint8Array) {
     data: bytesToHex(x25519.getPublicKey(privKey)),
   });
 
-  if (pubKeyRet.err) {
-    alert(`Failed to login: could not get communication key: ${pubKeyRet.err}`);
+  if (pubKeyRet[1]) {
+    alert(`Failed to login: could not get communication key: ${pubKeyRet[1]}`);
     return;
   }
 
-  let pubKey = hexToBytes(pubKeyRet.data);
+  let pubKey = hexToBytes(pubKeyRet[0] as string);
 
   const secret = x25519.getSharedSecret(privKey, pubKey);
   const nonce = randomBytes(24);
