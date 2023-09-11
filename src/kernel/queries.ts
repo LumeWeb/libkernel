@@ -121,6 +121,8 @@ function handleMessage(event: MessageEvent) {
     event.origin === EXTENSION_KERNEL_ORIGIN &&
     IS_EXTENSION_ANY;
 
+  const FROM_SW = event.source === serviceWorker;
+
   const FROM_HOSTED_KERNEL =
     event.source !== window && event.origin === EXTENSION_HOSTED_ORIGIN;
 
@@ -130,7 +132,7 @@ function handleMessage(event: MessageEvent) {
     event.data = Object.assign({}, event);
   }
 
-  if (!FROM_KERNEL && !FROM_HOSTED_KERNEL && !bgConn) {
+  if (!FROM_KERNEL && !FROM_HOSTED_KERNEL && !bgConn && !FROM_SW) {
     return;
   }
 
