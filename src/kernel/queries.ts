@@ -692,7 +692,7 @@ function newBootloaderQuery(method: string, data: any): Promise<any> {
       let nonce = nextNonce();
       queries[nonce] = { resolve: receiveResponse };
       getKernelIframe().contentWindow?.postMessage(
-        { method, data },
+        { method, data, nonce },
         kernelOrigin,
       );
     });
