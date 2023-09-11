@@ -86,9 +86,10 @@ async function login(key: Uint8Array) {
     return;
   }
 
-  let pubKeyRet = await newBootloaderQuery("exchangeCommunicationKeys", {
-    data: bytesToHex(x25519.getPublicKey(privKey)),
-  });
+  let pubKeyRet = await newBootloaderQuery(
+    "exchangeCommunicationKeys",
+    bytesToHex(x25519.getPublicKey(privKey)),
+  );
 
   if (pubKeyRet[1]) {
     alert(`Failed to login: could not get communication key: ${pubKeyRet[1]}`);
