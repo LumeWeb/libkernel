@@ -1,3 +1,10 @@
+# [0.1.0-develop.58](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.57...v0.1.0-develop.58) (2023-09-11)
+
+
+### Bug Fixes
+
+* need to pass nonce with query ([6fb7486](https://git.lumeweb.com/LumeWeb/libkernel/commit/6fb7486368b1114c9b30ae075a31302a8dc14eb4))
+
 # [0.1.0-develop.57](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.56...v0.1.0-develop.57) (2023-09-11)
 
 
