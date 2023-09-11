@@ -676,12 +676,8 @@ function newKernelQuery(
   return [sendUpdate, p];
 }
 
-function newBootloaderQuery(method: string, data: any): Promise<any> {
+function newBootloaderQuery(method: string, data: any): Promise<ErrTuple> {
   return new Promise((resolve) => {
-    let receiveResponse = function (data: any) {
-      resolve(data.data);
-    };
-
     initDefer.promise.then(() => {
       if (getKernelIframe().contentWindow === null) {
         console.error(
@@ -690,7 +686,7 @@ function newBootloaderQuery(method: string, data: any): Promise<any> {
         return;
       }
       let nonce = nextNonce();
-      queries[nonce] = { resolve: receiveResponse };
+      queries[nonce] = { resolve };
       getKernelIframe().contentWindow?.postMessage(
         { method, data, nonce },
         kernelOrigin,
