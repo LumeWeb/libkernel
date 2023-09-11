@@ -1,11 +1,16 @@
 import {
+  getKernelIframe,
   init,
   kernelAuthLocation,
   kernelLoadedDefer,
   loginDefer,
   logoutDefer,
+  newKernelQuery,
 } from "./queries.js";
 import { Err } from "#types.js";
+import { x25519 } from "@noble/curves/ed25519";
+import { bytesToHex, hexToBytes, randomBytes } from "@lumeweb/libweb";
+import { secretbox } from "@noble/ciphers/salsa";
 
 // There are 5 stages of auth.
 //
@@ -71,4 +76,44 @@ function openAuthWindow(): void {
   });
 }
 
-export { loginComplete, kernelLoaded, logoutComplete, openAuthWindow };
+async function login(key: Uint8Array) {
+  let privKey = x25519.utils.randomPrivateKey();
+
+  const iframe = getKernelIframe();
+
+  if (!iframe) {
+    return;
+  }
+
+  let pubKeyRet = await newKernelQuery(
+    "exchangeCommunicationKeys",
+    {
+      data: bytesToHex(x25519.getPublicKey(privKey)),
+    },
+    false,
+  );
+
+  let pubKeyT = await pubKeyRet[1];
+
+  if (pubKeyT[1]) {
+    alert(`Failed to login: could not get communication key: ${pubKeyT}`);
+    return;
+  }
+
+  let pubKey = hexToBytes(pubKeyT[1]?.[0] as string);
+
+  const secret = x25519.getSharedSecret(privKey, pubKey);
+  const nonce = randomBytes(24);
+  const box = secretbox(secret, nonce);
+  const ciphertext = box.seal(key);
+  await newKernelQuery(
+    "setLoginKey",
+    {
+      data: bytesToHex(ciphertext),
+      nonce: bytesToHex(nonce),
+    },
+    false,
+  );
+}
+
+export { loginComplete, kernelLoaded, logoutComplete, openAuthWindow, login };
