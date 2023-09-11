@@ -70,6 +70,10 @@ let bgConn: any;
 let serviceWorker: ServiceWorker;
 let kernelIframe: HTMLIFrameElement;
 
+function getKernelIframe() {
+  return kernelIframe;
+}
+
 async function serviceWorkerReady() {
   const sw = await navigator.serviceWorker.ready;
   navigator.serviceWorker.onmessage = (...args) => handleMessage(...args);
@@ -683,4 +687,5 @@ export {
   logoutDefer,
   newKernelQuery,
   serviceWorkerReady,
+  getKernelIframe,
 };
