@@ -229,9 +229,9 @@ function handleMessage(event: MessageEvent) {
     if (!kernelLoadedResolved && event.data.data.kernelLoaded !== "not yet") {
       kernelLoadedResolved = true;
       if (event.data.data.kernelLoaded === "success") {
-        kernelLoadedResolve(null);
+        kernelLoadedDefer.resolve(null);
       } else {
-        kernelLoadedResolve(event.data.data.kernelLoaded);
+        kernelLoadedDefer.resolve(event.data.data.kernelLoaded);
       }
     }
 
@@ -414,7 +414,6 @@ let initDefer: DeferredPromise<void>;
 let loginResolved = false; // set to true once we know the user is logged in
 let loginDefer: DeferredPromise<void>;
 let kernelLoadedResolved = false; // set to true once the user kernel is loaded
-let kernelLoadedResolve: (err: Err) => void;
 let kernelLoadedDefer: DeferredPromise<Err>;
 const logoutResolved = false; // set to true once the user is logged out
 let logoutDefer: DeferredPromise<void>;
