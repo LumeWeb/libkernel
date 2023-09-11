@@ -1,3 +1,15 @@
+# [0.1.0-develop.56](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.55...v0.1.0-develop.56) (2023-09-11)
+
+
+### Bug Fixes
+
+* use newBootloaderQuery ([25d2f6b](https://git.lumeweb.com/LumeWeb/libkernel/commit/25d2f6b1c09e13b876419fa2262aaa9cbc20a919))
+
+
+### Features
+
+* add newBootloaderQuery method ([8561535](https://git.lumeweb.com/LumeWeb/libkernel/commit/85615350f097345ee36bc5d0bcb482a363e83291))
+
 # [0.1.0-develop.55](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.54...v0.1.0-develop.55) (2023-09-11)
 
 
