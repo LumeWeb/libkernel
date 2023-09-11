@@ -677,6 +677,29 @@ function newKernelQuery(
   return [sendUpdate, p];
 }
 
+function newBootloaderQuery(method: string, data: any): Promise<any> {
+  return new Promise((resolve) => {
+    let receiveResponse = function (data: any) {
+      resolve(data.data);
+    };
+
+    initDefer.promise.then(() => {
+      if (getKernelIframe().contentWindow === null) {
+        console.error(
+          "kernelFrame.contentWindow was null, cannot send message!",
+        );
+        return;
+      }
+      let nonce = nextNonce();
+      queries[nonce] = { resolve: receiveResponse };
+      getKernelIframe().contentWindow?.postMessage(
+        { method, data },
+        kernelOrigin,
+      );
+    });
+  });
+}
+
 export {
   callModule,
   connectModule,
@@ -688,4 +711,5 @@ export {
   newKernelQuery,
   serviceWorkerReady,
   getKernelIframe,
+  newBootloaderQuery,
 };
