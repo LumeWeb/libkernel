@@ -1,3 +1,10 @@
+# [0.1.0-develop.55](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.54...v0.1.0-develop.55) (2023-09-11)
+
+
+### Bug Fixes
+
+* export login and serviceWorkerReady ([cb5a617](https://git.lumeweb.com/LumeWeb/libkernel/commit/cb5a6175f648130b2ffdb57bdeaa0af0ec3e9529))
+
 # [0.1.0-develop.54](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.53...v0.1.0-develop.54) (2023-09-11)
 
 
