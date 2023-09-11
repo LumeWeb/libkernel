@@ -1,3 +1,11 @@
+# [0.1.0-develop.54](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.53...v0.1.0-develop.54) (2023-09-11)
+
+
+### Features
+
+* add login function that calls exchangeCommunicationKeys and setLoginKey ([fd6c8d3](https://git.lumeweb.com/LumeWeb/libkernel/commit/fd6c8d3b1f8a62e6d0d30cef112d7feb3980c36e))
+* add service worker support ([15c5960](https://git.lumeweb.com/LumeWeb/libkernel/commit/15c59603f2f9b50531f82dcd36294719c7185ed6))
+
 # [0.1.0-develop.53](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.52...v0.1.0-develop.53) (2023-09-09)
 
 # [0.1.0-develop.52](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.51...v0.1.0-develop.52) (2023-09-09)
