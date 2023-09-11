@@ -5,6 +5,7 @@ import {
   kernelLoadedDefer,
   loginDefer,
   logoutDefer,
+  newBootloaderQuery,
   newKernelQuery,
 } from "./queries.js";
 import { Err } from "#types.js";
@@ -85,35 +86,25 @@ async function login(key: Uint8Array) {
     return;
   }
 
-  let pubKeyRet = await newKernelQuery(
-    "exchangeCommunicationKeys",
-    {
-      data: bytesToHex(x25519.getPublicKey(privKey)),
-    },
-    false,
-  );
+  let pubKeyRet = await newBootloaderQuery("exchangeCommunicationKeys", {
+    data: bytesToHex(x25519.getPublicKey(privKey)),
+  });
 
-  let pubKeyT = await pubKeyRet[1];
-
-  if (pubKeyT[1]) {
-    alert(`Failed to login: could not get communication key: ${pubKeyT}`);
+  if (pubKeyRet.err) {
+    alert(`Failed to login: could not get communication key: ${pubKeyRet.err}`);
     return;
   }
 
-  let pubKey = hexToBytes(pubKeyT[1]?.[0] as string);
+  let pubKey = hexToBytes(pubKeyRet.data);
 
   const secret = x25519.getSharedSecret(privKey, pubKey);
   const nonce = randomBytes(24);
   const box = secretbox(secret, nonce);
   const ciphertext = box.seal(key);
-  await newKernelQuery(
-    "setLoginKey",
-    {
-      data: bytesToHex(ciphertext),
-      nonce: bytesToHex(nonce),
-    },
-    false,
-  );
+  await newBootloaderQuery("setLoginKey", {
+    data: bytesToHex(ciphertext),
+    nonce: bytesToHex(nonce),
+  });
 }
 
 export { loginComplete, kernelLoaded, logoutComplete, openAuthWindow, login };
