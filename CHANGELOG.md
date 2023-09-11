@@ -1,3 +1,10 @@
+# [0.1.0-develop.60](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.59...v0.1.0-develop.60) (2023-09-11)
+
+
+### Bug Fixes
+
+* don't nest in a data property with exchangeCommunicationKeys ([d7663d0](https://git.lumeweb.com/LumeWeb/libkernel/commit/d7663d0ff5f1f5ef2f7535a6aa1bf5c1f2f310d2))
+
 # [0.1.0-develop.59](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.58...v0.1.0-develop.59) (2023-09-11)
 
 
