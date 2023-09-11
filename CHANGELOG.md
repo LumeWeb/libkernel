@@ -1,3 +1,11 @@
+# [0.1.0-develop.61](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.60...v0.1.0-develop.61) (2023-09-11)
+
+
+### Bug Fixes
+
+* add service worker to check ([c2be4fe](https://git.lumeweb.com/LumeWeb/libkernel/commit/c2be4fe886cad8210aa04b6c1e55064fce93c9b5))
+* use FROM_SW ([ca15414](https://git.lumeweb.com/LumeWeb/libkernel/commit/ca15414444c8a94af0db4758e6b855313c0cf332))
+
 # [0.1.0-develop.60](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.59...v0.1.0-develop.60) (2023-09-11)
 
 
