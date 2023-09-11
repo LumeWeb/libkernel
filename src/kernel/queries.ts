@@ -148,7 +148,7 @@ function handleMessage(event: MessageEvent) {
       return;
     }
   }
-  if (event.source === serviceWorker) {
+  if (FROM_SW) {
     if (["moduleCall", "queryUpdate", "response"].includes(event.data.method)) {
       kernelIframe?.contentWindow?.postMessage(
         { ...event.data, sw: true },
