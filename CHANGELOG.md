@@ -1,3 +1,11 @@
+# [0.1.0-develop.59](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.58...v0.1.0-develop.59) (2023-09-11)
+
+
+### Bug Fixes
+
+* newBootloaderQuery now returns an ErrTuple ([780f4fd](https://git.lumeweb.com/LumeWeb/libkernel/commit/780f4fddf71fe158ef899353b0210a53b02430c6))
+* newBootloaderQuery should return a ErrTuple ([3ee446a](https://git.lumeweb.com/LumeWeb/libkernel/commit/3ee446a9c5ce8adda16e16b01fab95b7dc25a547))
+
 # [0.1.0-develop.58](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.57...v0.1.0-develop.58) (2023-09-11)
 
 
