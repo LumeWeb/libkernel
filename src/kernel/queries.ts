@@ -136,17 +136,10 @@ function handleMessage(event: MessageEvent) {
     return;
   }
 
-  if (event.source === kernelIframe?.contentWindow) {
-    if (
-      ["response", "queryUpdate", "responseNonce", "responseUpdate"].includes(
-        event.data.method,
-      ) &&
-      event.data.sw
-    ) {
-      delete event.data.sw;
-      serviceWorker?.postMessage(event.data);
-      return;
-    }
+  if (event.source === kernelIframe?.contentWindow && event.data.sw) {
+    delete event.data.sw;
+    serviceWorker?.postMessage(event.data);
+    return;
   }
   if (FROM_SW) {
     if (["moduleCall", "queryUpdate", "response"].includes(event.data.method)) {
