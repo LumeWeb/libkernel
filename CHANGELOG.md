@@ -1,3 +1,10 @@
+# [0.1.0-develop.63](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.62...v0.1.0-develop.63) (2023-09-16)
+
+
+### Bug Fixes
+
+* remove checking the method for kernel -> sw messages ([6e1e244](https://git.lumeweb.com/LumeWeb/libkernel/commit/6e1e244f0e7ad607f8fd249fe38b8dbe1a6def51))
+
 # [0.1.0-develop.62](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.61...v0.1.0-develop.62) (2023-09-11)
 
 # [0.1.0-develop.61](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.60...v0.1.0-develop.61) (2023-09-11)
