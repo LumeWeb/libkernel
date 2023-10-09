@@ -1,4 +1,5 @@
 import defer from "p-defer";
+
 export { defer };
 
 export { log, logErr } from "./log.js";
@@ -11,3 +12,11 @@ export { Client, factory } from "./client.js";
 import NetworkClient from "./clients/network.js";
 
 export { NetworkClient };
+
+import { factory } from "./client.js";
+
+class GenericNetworkClient extends NetworkClient {}
+
+export function createNetworkClient(module: string): GenericNetworkClient {
+  return factory<GenericNetworkClient>(GenericNetworkClient, module)();
+}
