@@ -1,3 +1,10 @@
+# [0.1.0-develop.65](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.64...v0.1.0-develop.65) (2023-10-09)
+
+
+### Features
+
+* add createNetworkClient helper ([6ecaf16](https://git.lumeweb.com/LumeWeb/libkernel/commit/6ecaf16d4e3789d3dc1537ad84eabc6774f489ac))
+
 # [0.1.0-develop.64](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.63...v0.1.0-develop.64) (2023-09-20)
 
 # [0.1.0-develop.63](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.62...v0.1.0-develop.63) (2023-09-16)
