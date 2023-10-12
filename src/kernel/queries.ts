@@ -430,7 +430,6 @@ function init(): Promise<void> {
   loginDefer = defer();
   kernelLoadedDefer = defer();
   logoutDefer = defer();
-  kernelLoadedDefer = defer();
   sourceDefer = defer();
 
   // Return the initDefer, which will resolve when bootloader init is
