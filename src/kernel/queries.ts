@@ -162,17 +162,10 @@ function handleMessage(event: MessageEvent) {
 
   // Handle logging messages.
   if (event.data.method === "log" && !IS_EXTENSION) {
-    // We display the logging message if the kernel is a browser
-    // extension, so that the kernel's logs appear in the app
-    // console as well as the extension console. If the kernel is
-    // in an iframe, its logging messages will already be in the
-    // app console and therefore don't need to be displayed.
-    if (kernelOrigin === window.origin) {
-      if (event.data.data.isErr) {
-        console.error(event.data.data.message);
-      } else {
-        console.log(event.data.data.message);
-      }
+    if (event.data.data.isErr) {
+      console.error(event.data.data.message);
+    } else {
+      console.log(event.data.data.message);
     }
     return;
   }
