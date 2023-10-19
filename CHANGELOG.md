@@ -1,3 +1,11 @@
+# [0.1.0-develop.66](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.65...v0.1.0-develop.66) (2023-10-12)
+
+
+### Bug Fixes
+
+* always show log data ([d3259fa](https://git.lumeweb.com/LumeWeb/libkernel/commit/d3259fa3f4b2330031480b10b41af11d038c0dc6))
+* duplicate kernelLoadedDefer ([a4b9b46](https://git.lumeweb.com/LumeWeb/libkernel/commit/a4b9b46a3e8f1d4f89dbb1ec87fa3b2f605bc91a))
+
 # [0.1.0-develop.65](https://git.lumeweb.com/LumeWeb/libkernel/compare/v0.1.0-develop.64...v0.1.0-develop.65) (2023-10-09)
 
 
